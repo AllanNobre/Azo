@@ -26,19 +26,12 @@ namespace Azo {
 			Menu(std::string scene_name);
 		private:
 			void CreateGameObjects();
-			void CreateImageComponents();
-			void CreateBackgroundComponents();
-			void CreateCodeComponents();
-			void CreateAudioComponents();
+			void CreateComponents();
 
-			void SetGameObjects();
-			void SetImageComponents();
-			void SetBackgroundComponents();
-			void SetCodeComponents();
-			void SetAudioComponents();
+			void SetGameObjectsOnScene();
 
 			void SetMenuDependencies();
-			bool Shutdown();
+			void Shutdown();
 			void DestroyComponents();
 			void DestroyGameObjects();
 	};

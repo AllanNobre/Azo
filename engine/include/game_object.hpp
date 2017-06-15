@@ -53,16 +53,20 @@ namespace engine {
 			};
 
 			// Call all Init methods of the components of the Game Object.
-			virtual bool Init();
+			virtual void Init();
 
 			// Call all Draw and Update methods of the components of the Game Object.
-			virtual bool Draw();
+			virtual void Draw();
 
 			// Call all Shutdowns methods of the components of the Game Object.
-			virtual bool Shutdown();
+			virtual void Shutdown();
 
 			// Call all UpdateCode methods of the components of the Game Object.
-			virtual bool UpdateCode();
+			virtual void UpdateCode();
+
+			virtual inline std::string GetClassName(){
+				return "GameObject";
+			}
 	};
 
 }

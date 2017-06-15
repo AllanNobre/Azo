@@ -2,31 +2,27 @@
 
 using namespace engine;
 
-bool AudioController::Init(){
+void AudioController::Init(){
 	for(auto audio_row : audio_map){
 		auto audio = audio_row.second;
 		audio->Init();
 	}
-
-	return true;
 }
 
-bool AudioController::Shutdown(){
+void AudioController::Shutdown(){
 	for(auto audio_row : audio_map){
 		auto audio = audio_row.second;
 		audio->Shutdown();
 	}
-	return true;
 }
 
-bool AudioController::UpdateCode(){
+void AudioController::UpdateCode(){
 	for(auto audio_row : audio_map){
 		auto audio = audio_row.second;
 		if(audio->IsEnabled()){
 			audio->UpdateCode();
 		}
 	}
-	return true;
 }
 
 AudioController::AudioController(){

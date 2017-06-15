@@ -24,21 +24,27 @@ Animation::Animation(GameObject & game_object, std::string image_path, float ani
 
 Animation::~Animation(){}
 
-bool Animation::Draw(){
-//	DEBUG("Animation::Draw()");
+void Animation::Draw(){
+	DEBUG("Animation::Draw method.");
+
 	UpdateFrameBasedOntime();
+	CheckLimits();
 	UpdateQuad();
 	UpdateGameObjectMeasures();
-	CheckLimits();
 
-	SDL_RenderCopy(
+	DEBUG("Current drawing: " << current_sprite)
+
+	int successful_draw = SDL_RenderCopy(
 		Game::instance.sdl_elements.GetCanvas(),
 		image_texture,
 		&renderQuad,
 		&canvasQuad
 		);
 
-	return true;
+	if(successful_draw < 0){
+		ERROR("Unable to Draw.");
+	}
+
 }
 
 void Animation::UpdateQuad(){

@@ -9,59 +9,48 @@ Scene::Scene(std::string scene_name){
 }
 
 
-bool Scene::Init(){
+void Scene::Init(){
+	DEBUG("Init Scene name: " << this->GetSceneName());
 	for(auto each_game_object : game_object_map){
 		auto game_object = each_game_object.second;
-		if(game_object->Init() == false){
-			return false;
-		}
+		game_object->Init();
 	}
-	return true;
 }
 
-bool Scene::Shutdown(){
+void Scene::Shutdown(){
 	for(auto each_game_object : game_object_map){
 		auto game_object = each_game_object.second;
-		if(game_object->Shutdown() == false){
-			return false;
-		}
+		game_object->Shutdown();
 	}
-	return true;
+
 }
 
-bool Scene::Draw(){
+void Scene::Draw(){
+	//DEBUG("Draw Scene Name. " << this->GetSceneName());
 	ResolveCollision();
 
 	for(auto each_game_object : game_object_map){
 		auto game_object = each_game_object.second;
-		if(game_object->Draw() == false){
-			return false;
-		}
+		game_object->Draw();
 	}
-	return true;
 }
 
-bool Scene::UpdateCode(){
+void Scene::UpdateCode(){
 	for(auto each_game_object : game_object_map){
 		auto game_object = each_game_object.second;
-		if(game_object->UpdateCode() == false){
-			return false;
-		}
+		game_object->UpdateCode();
 	}
-	return true;
 }
 
 
-bool Scene::AddGameObject(GameObject &game_object){
+void Scene::AddGameObject(GameObject &game_object){
 	auto game_object_name = game_object.GetGameObjectName();
 
 	if(game_object_map.find(game_object_name) != game_object_map.end()){
-		std::cout << "Game object already exists!" << std::endl;
-		return false;
+		ERROR("Game object already exists!");
 	}
 
 	game_object_map[game_object_name] = &game_object;
-	return true;
 }
 
 GameObject & Scene::GetGameObject(std::string &game_object_name){
@@ -74,14 +63,12 @@ GameObject & Scene::GetGameObject(std::string &game_object_name){
 
 }
 
-bool Scene::RemoveGameObject(std::string &game_object_name){
+void Scene::RemoveGameObject(std::string &game_object_name){
 	if(game_object_map.find(game_object_name) == game_object_map.end()){
 		ERROR("Game object doesn't exist!");
-		return false;
 	}
 
 	game_object_map.erase(game_object_name);
-	return true;
 
 }
 
@@ -115,9 +102,8 @@ void Scene::ResolveCollision(){
 
 				game_object_one->state = GameObjectState::COLLIDING;
 				game_object_two->state = GameObjectState::COLLIDING;
-
-				game_object_one->collision_list.push_back(game_object_two->GetGameObjectName());
-				game_object_two->collision_list.push_back(game_object_one->GetGameObjectName());
+				game_object_one->collision_list.push_back(game_object_two->GetClassName());
+				game_object_two->collision_list.push_back(game_object_one->GetClassName());
 
 			}
 		}

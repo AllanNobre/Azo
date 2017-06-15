@@ -19,7 +19,10 @@ namespace Azo {
 			void SetDependencies();
 			void CreateComponents();
 			void SetComponents();
-			bool Shutdown();
+			void Shutdown();
+			inline std::string GetClassName(){
+				return "Floor";
+			}
 	};
 }
 
