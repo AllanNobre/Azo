@@ -22,6 +22,7 @@ void LevelOne::CreateGameObjects(){
 }
 
 void LevelOne::SetGameObjects(){
+	INFO("Setting LevelOne GameObjects.");
 	this->AddGameObject(*player);
 	this->AddGameObject(*floor_platform);
 	this->AddGameObject(*wall);
@@ -29,10 +30,12 @@ void LevelOne::SetGameObjects(){
 }
 
 void LevelOne::Shutdown(){
+	INFO("Destroying LevelOne.");
 	DestroyGameObjects();
 }
 
 void LevelOne::DestroyGameObjects(){
+	INFO("Destroying LevelOne GameObjects.");
 	player->Shutdown();
 	free(player);
 	player = NULL;
@@ -41,10 +44,16 @@ void LevelOne::DestroyGameObjects(){
 	free(floor_platform);
 	floor_platform = NULL;
 
+	floor_plataform_two->Shutdown();
+	free(floor_plataform_two);
+	floor_plataform_two = NULL;
+
+
 	wall->Shutdown();
 	free(wall);
 	wall = NULL;
 
+	INFO("LevelOne GameObjects Destroyed.");
 }
 
 void LevelOne::UpdateCode(){

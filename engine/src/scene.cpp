@@ -8,7 +8,6 @@ Scene::Scene(std::string scene_name){
 	this->scene_name = scene_name;
 }
 
-
 void Scene::Init(){
 	DEBUG("Init Scene name: " << this->GetSceneName());
 	for(auto each_game_object : game_object_map){
@@ -22,17 +21,19 @@ void Scene::Shutdown(){
 		auto game_object = each_game_object.second;
 		game_object->Shutdown();
 	}
-
 }
 
 void Scene::Draw(){
-	//DEBUG("Draw Scene Name. " << this->GetSceneName());
-	ResolveCollision();
-
+	DEBUG("GameObject Map size before Drawing: " << game_object_map.size());
+	INFO("Drawing game_objects of scene: " << this->GetSceneName());
 	for(auto each_game_object : game_object_map){
 		auto game_object = each_game_object.second;
+		DEBUG("Drawing GameObject: " << game_object->GetGameObjectName());
 		game_object->Draw();
+		DEBUG(game_object->GetGameObjectName() << " Drew successful");
 	}
+	INFO("Trying to Resolve Collisions to: " << this->GetSceneName());
+	ResolveCollision();
 }
 
 void Scene::UpdateCode(){
@@ -108,4 +109,5 @@ void Scene::ResolveCollision(){
 			}
 		}
 	}
+	INFO("Collision checks Finished.");
 }

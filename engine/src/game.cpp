@@ -59,10 +59,11 @@ void Game::Run(){
 
 		// Clean and Draw the Scene to refreh animations and objects.
 		SDL_RenderClear(sdl_elements.GetCanvas());
+		INFO(current_scene->GetSceneName() << " Draw.");
 		current_scene->Draw();
 		SDL_RenderPresent(sdl_elements.GetCanvas());
 
-		//INFO("Updating current scene: " << current_scene->GetSceneName() << " code.");
+		DEBUG("Updating current scene: " << current_scene->GetSceneName() << " code.");
 		current_scene->UpdateCode();
 
 
@@ -90,6 +91,7 @@ void Game::Run(){
 bool Game::AddScene(Scene &scene){
 	auto scene_name = scene.GetSceneName();
 
+	INFO("Adding scene: " << scene_name);
 
 	if(scene_map.find(scene_name) != scene_map.end()){
 		ERROR("Scene already exists!");
@@ -99,6 +101,7 @@ bool Game::AddScene(Scene &scene){
 	}
 
 	scene_map[scene_name] = &scene;
+	DEBUG("Scene Map size after putting this scene is " << scene_map.size());
 
 	return true;
 }
@@ -106,7 +109,8 @@ bool Game::AddScene(Scene &scene){
 
 // Perform the necessary checks and prepare the structure to switch Scenes.
 void Game::ChangeScene(std::string scene_name){
-	INFO("Changing Scenes.");
+	INFO("Changing Scenes: " << scene_name);
+
 	if(scene_map.find(scene_name) == scene_map.end()){
 		ERROR("Scene not found!");
 	}else{
@@ -116,6 +120,14 @@ void Game::ChangeScene(std::string scene_name){
 	last_scene = current_scene;
 	current_scene = scene_map[scene_name];
 	need_to_change_scene = true;
+
+	if(last_scene != NULL){
+		INFO("Last Scene: " << last_scene->GetSceneName());
+	}else{
+		INFO("Last Scene é NULL.");
+	}
+
+	INFO("Current Scene: " << current_scene->GetSceneName());
 }
 
 
@@ -130,12 +142,16 @@ bool Game::StartAndStopScenes(){
 			current_scene->Init();
 
 			if(last_scene != NULL){
-				INFO("Shuting down scene!");
+				INFO("Shuting down scene: " << last_scene->GetSceneName());
 				scene_map.erase(last_scene->GetSceneName());
 				last_scene->Shutdown();
+				free(last_scene);
+				last_scene = NULL;
 			}else{
 				// Nothing to Do.
 			}
+
+			DEBUG(current_scene->GetSceneName() << " Initialized.");
 
 			need_to_change_scene = false;
 		}

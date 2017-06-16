@@ -208,3 +208,37 @@ void Player::GenJumpingAnimation(){
 	m_jumping_animation_sprites[7]->sprite_width = 83 - 20;
 	m_jumping_animation_sprites[7]->sprite_height = 1107 - 997;
 }
+
+
+void Player::Shutdown(){
+	INFO("Destroying Player Components.");
+	ASSERT(m_walking != NULL, "Walking Animation can't be NULL while shutting down.");
+	ASSERT(m_jumping != NULL, "Jumping Animation can't be NULL while shutting down.");
+	ASSERT(m_anim_controller != NULL, "Animation Controller can't be NULL while shutting down.");
+	ASSERT(m_player_code != NULL, "Player Code can't be NULL while shutting down.");
+
+	for(int i = 0; i < 23; i++){
+		free(m_walking_animation_sprites[i]);
+		m_walking_animation_sprites[i] = NULL;
+	}
+
+	for(int i = 0; i < 8; i++){
+		free(m_jumping_animation_sprites[i]);
+		m_jumping_animation_sprites[i] = NULL;
+	}
+
+	m_walking->Shutdown();
+	free(m_walking);
+	m_walking = NULL;
+
+	m_jumping->Shutdown();
+	free(m_jumping);
+	m_jumping = NULL;
+
+	m_player_code->Shutdown();
+	free(m_player_code);
+	m_player_code = NULL;
+
+	free(m_anim_controller);
+	m_anim_controller = NULL;
+}

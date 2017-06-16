@@ -13,16 +13,20 @@ void AnimationController::Init(){
 void AnimationController::Draw(){
 	for(auto animation_row : animation_map){
 		auto animation = animation_row.second;
+		DEBUG("Drawing Animation: " << animation->animation_name);
 		if(animation->IsEnabled()){
 			animation->Draw();
 		}
+		DEBUG(animation->animation_name << " Drew successful.");
 	}
 }
 
 void AnimationController::Shutdown(){
 	for(auto animation_row : animation_map){
 		auto animation = animation_row.second;
+		DEBUG("Shuttind Down Animation: " << animation->animation_name);
 		animation->Shutdown();
+		DEBUG(animation->animation_name << " Shut Down successful.");
 	}
 }
 

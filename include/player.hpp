@@ -30,6 +30,7 @@ namespace Azo {
 		public:
 			Player();
 			Player(std::string name, int x, int y);
+			void Shutdown();
 	};
 }
 

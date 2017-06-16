@@ -46,6 +46,10 @@ namespace engine {
 			inline bool GetIsMusic(){
 				return is_music;
 			}
+
+			inline std::string GetAudioPath() {
+				return audio_path;
+			}
 	};
 
 }

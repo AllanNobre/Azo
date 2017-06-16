@@ -59,5 +59,8 @@ void BackgroundComponent::Draw(){
 
 void BackgroundComponent::Shutdown(){
 	/* Terminate Texture */
-	image_texture = NULL;
+	INFO("Shutting Down Componets related to BackgroundComponent.");
+	// SDL_DestroyTexture(image_texture);
+	// image_texture = NULL;
+	INFO("Componets related to BackgroundComponent Shut Down.");
 }

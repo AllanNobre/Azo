@@ -23,7 +23,7 @@ void SDL::InitSDL(){
 	}
 
 	INFO("Initializing SDL Mixer.");
-	if(Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 2048) < 0){
+	if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0){
 		ERROR("SDL MIXER could't be started.");
 	}
 }
@@ -46,6 +46,9 @@ void SDL::CreateWindow(){
 	}
 
 	SDL_GetWindowSize(window, &window_width, &window_height);
+	INFO("Window Width: " << window_width);
+	INFO("Window Heidht: " << window_height);
+
 
 	INFO("Creating canvas.");
 	canvas = SDL_CreateRenderer(

@@ -65,7 +65,7 @@ void Menu::CreateComponents(){
 
 	DEBUG("Creating Audio Components for Menu.");
 
-	menu_theme = new engine::AudioComponent(*menu_game_object, "audios/HoraDeAcertar.ogg", true, true);
+	menu_theme = new engine::AudioComponent(*menu_game_object, "audios/music.wav", true, true);
 	audio_controller = new engine::AudioController();
 
 	DEBUG("Setting Audio Components");
@@ -74,7 +74,7 @@ void Menu::CreateComponents(){
 	ASSERT(audio_controller != NULL, "Audio controller can't be NULL.");
 	ASSERT(audio_controller != NULL, "Audio controller can't be null");
 
-	audio_controller->AddAudio("menu_theme", *menu_theme);
+	// audio_controller->AddAudio("menu_theme", *menu_theme);
 	menu_game_object->AddComponent(*audio_controller);
 
 	DEBUG("Creating Code Components for Menu.");
@@ -112,10 +112,13 @@ void Menu::DestroyComponents(){
 	audio_controller->Shutdown();
 	free(audio_controller);
 	audio_controller = NULL;
+
+	free(menu_theme);
+	menu_theme = NULL;
 }
 
 void Menu::DestroyGameObjects(){
-	INFO("Destroying GameObjects.");
+	INFO("Destroying Menu GameObjects.");
 	free(menu_game_object);
 	DEBUG("Freeing Menu pointer.");
 	menu_game_object = NULL;

@@ -12,8 +12,10 @@ void AudioController::Init(){
 void AudioController::Shutdown(){
 	for(auto audio_row : audio_map){
 		auto audio = audio_row.second;
+		INFO("Asking for Shutting Down Audio: " << audio->GetAudioPath());
 		audio->Shutdown();
 	}
+	//audio_map.clear();
 }
 
 void AudioController::UpdateCode(){
@@ -23,6 +25,7 @@ void AudioController::UpdateCode(){
 			audio->UpdateCode();
 		}
 	}
+	DEBUG("All audios codes were update, with size: " << this->audio_map.size());
 }
 
 AudioController::AudioController(){
@@ -36,6 +39,7 @@ AudioController::AudioController(GameObject &game_object){
 
 void AudioController::AddAudio(std::string audio_name, AudioComponent &audio){
 	audio_map[audio_name] = &audio;
+	DEBUG(audio_name << "Added to map with size: " << this->audio_map.size());
 }
 
 void AudioController::PlayAudio(std::string audio_name){

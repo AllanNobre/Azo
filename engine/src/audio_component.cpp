@@ -45,14 +45,30 @@ void AudioComponent::UpdateCode(){
 }
 
 void AudioComponent::Shutdown(){
-	INFO("Shutdown audio component");
+	INFO("Shutting down audio component " << this->GetAudioPath());
 
-	Stop(-1);
-	free(music);
-	music = NULL;
-	free(sound);
-	sound = NULL;
+	//Stop(-1);
+	if(is_music){
+		INFO("Dealocating musics");
+		if(music == NULL){
+			ERROR("Music is NULL in Dealocate process.");
+		}else{
+			Mix_FreeMusic(music);
+		}
+		// free(music);
+		// music = NULL;
+		INFO("Musics Dealocated");
 
+
+	}else{
+		INFO("Dealocating sounds");
+		Mix_FreeChunk(sound);
+		// free(sound);
+		// sound = NULL;
+		INFO("Sounds Dealocated");
+	}
+
+	DEBUG("Audio component shut down finished: " << this->GetAudioPath());
 }
 
 void AudioComponent::Play(int loops, int channel){
@@ -78,6 +94,8 @@ void AudioComponent::Play(int loops, int channel){
 	}
 
 	audio_state = AudioState::PLAYING;
+	INFO("Play music: " << static_cast<int>(this->audio_state));
+
 }
 
 void AudioComponent::Stop(int channel){

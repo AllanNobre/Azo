@@ -27,9 +27,9 @@ void ImageComponent::Init(){
 	component_width = assets_image->width;
 	component_height = assets_image->height;
 
-	game_object->game_object_width = component_width;
+	game_object->game_object_width = (int)(component_width * resize);
 
-	game_object->game_object_height = component_height;
+	game_object->game_object_height = (int)(component_height * resize);
 
 	canvasQuad = {pos_x, pos_y, (int)(component_width * resize), (int)(component_height * resize)};
 	renderQuad = {0, 0, component_width, component_height};

@@ -53,7 +53,7 @@ AudioController* GameObject::GetAudioController(std::type_index component_type){
 
 // Call all Init methods of the components of the Game Object.
 void GameObject::Init(){
-	DEBUG("Initializing game_object");
+	DEBUG("Initializing game_object: " << this->game_object_name);
 	for(auto each_pair : component_map){
 		auto component = each_pair.second;
 		if(component->IsEnabled()){
@@ -64,12 +64,15 @@ void GameObject::Init(){
 
 // Call all Draw and Update methods of the components of the Game Object.
 void GameObject::Draw(){
+	DEBUG("Components Map size before Drawing: " << component_map.size());
+	INFO("Drawing components of game_object: " << this->game_object_name);
 	for(auto each_pair : component_map){
 		auto component = each_pair.second;
 		if(component->IsEnabled()){
 			component->Draw();
 		}
 	}
+	DEBUG("Components Drew for game object: " << this->game_object_name);
 }
 
 
