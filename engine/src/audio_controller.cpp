@@ -19,13 +19,16 @@ void AudioController::Shutdown(){
 }
 
 void AudioController::UpdateCode(){
+	DEBUG("Updating Code of " << this->audio_map.size() << " audios.");
+
 	for(auto audio_row : audio_map){
 		auto audio = audio_row.second;
 		if(audio->IsEnabled()){
 			audio->UpdateCode();
 		}
 	}
-	DEBUG("All audios codes were update, with size: " << this->audio_map.size());
+
+	DEBUG("All audios codes were update, with map size: " << this->audio_map.size());
 }
 
 AudioController::AudioController(){

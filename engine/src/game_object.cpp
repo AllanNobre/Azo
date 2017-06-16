@@ -53,13 +53,14 @@ AudioController* GameObject::GetAudioController(std::type_index component_type){
 
 // Call all Init methods of the components of the Game Object.
 void GameObject::Init(){
-	DEBUG("Initializing game_object: " << this->game_object_name);
+	DEBUG("Initializing game_object components: " << this->game_object_name);
 	for(auto each_pair : component_map){
 		auto component = each_pair.second;
 		if(component->IsEnabled()){
 			component->Init();
 		}
 	}
+	DEBUG(this->game_object_name << " Componets Initialized .");
 }
 
 // Call all Draw and Update methods of the components of the Game Object.

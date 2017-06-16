@@ -16,10 +16,10 @@ namespace Azo {
 			Floor *floor_plataform_two;
 			Wall *wall;
 		public:
+			bool apply_update = false;
 			LevelOne();
 			LevelOne(std::string name);
 			void UpdateCode();
-			bool apply_update = false;
 		private:
 			void SetDependencies();
 			void CreateGameObjects();

@@ -65,8 +65,9 @@ void Menu::CreateComponents(){
 
 	DEBUG("Creating Audio Components for Menu.");
 
-	menu_theme = new engine::AudioComponent(*menu_game_object, "audios/music.wav", true, true);
+	menu_theme = new engine::AudioComponent(*menu_game_object, "audios/HoraDeAcertar.ogg", true, true);
 	audio_controller = new engine::AudioController();
+	menu_theme->DisableComponent();
 
 	DEBUG("Setting Audio Components");
 
@@ -74,7 +75,7 @@ void Menu::CreateComponents(){
 	ASSERT(audio_controller != NULL, "Audio controller can't be NULL.");
 	ASSERT(audio_controller != NULL, "Audio controller can't be null");
 
-	// audio_controller->AddAudio("menu_theme", *menu_theme);
+	audio_controller->AddAudio("menu_theme", *menu_theme);
 	menu_game_object->AddComponent(*audio_controller);
 
 	DEBUG("Creating Code Components for Menu.");

@@ -45,6 +45,7 @@ void BackgroundComponent::UpdateQuad(){
 
 void BackgroundComponent::Draw(){
 	UpdateQuad();
+
 	int successful_draw = SDL_RenderCopy(
 		Game::instance.sdl_elements.GetCanvas(),
 		image_texture,

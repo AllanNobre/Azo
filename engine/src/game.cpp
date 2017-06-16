@@ -59,13 +59,15 @@ void Game::Run(){
 
 		// Clean and Draw the Scene to refreh animations and objects.
 		SDL_RenderClear(sdl_elements.GetCanvas());
+
 		INFO(current_scene->GetSceneName() << " Draw.");
+
 		current_scene->Draw();
 		SDL_RenderPresent(sdl_elements.GetCanvas());
 
 		DEBUG("Updating current scene: " << current_scene->GetSceneName() << " code.");
-		current_scene->UpdateCode();
 
+		current_scene->UpdateCode();
 
 		//INFO("Clearing user input from InputManager.");
 		input_manager.Clear();

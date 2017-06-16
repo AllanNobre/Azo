@@ -73,6 +73,7 @@ void AudioComponent::Shutdown(){
 
 void AudioComponent::Play(int loops, int channel){
 	INFO("AudioComponent::Play audio: " << audio_path);
+	INFO("Play music initial audio state: " << static_cast<int>(this->audio_state));
 
 	if(is_music){
 		if(audio_state == AudioState::STOPPED){
@@ -94,7 +95,7 @@ void AudioComponent::Play(int loops, int channel){
 	}
 
 	audio_state = AudioState::PLAYING;
-	INFO("Play music: " << static_cast<int>(this->audio_state));
+	INFO("Play music final audio state: " << static_cast<int>(this->audio_state));
 
 }
 

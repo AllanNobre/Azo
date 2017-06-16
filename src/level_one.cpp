@@ -61,11 +61,11 @@ void LevelOne::UpdateCode(){
 		auto game_object = each_game_object.second;
 
 		if(game_object->GetClassName() == "Player"){
-			if(apply_update == false){
-				game_object->UpdateCode();
-			}
 			if(game_object->x >= engine::Game::instance.sdl_elements.GetWindowWidth() / 3){
 				apply_update = true;
+			}
+			if(apply_update == false){
+				game_object->UpdateCode();
 			}
 		}
 

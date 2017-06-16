@@ -12,7 +12,9 @@ void Scene::Init(){
 	DEBUG("Init Scene name: " << this->GetSceneName());
 	for(auto each_game_object : game_object_map){
 		auto game_object = each_game_object.second;
+		DEBUG("Initializing GameObject: " << game_object->GetGameObjectName());
 		game_object->Init();
+		DEBUG(game_object->GetGameObjectName() << " Initialized successful");
 	}
 }
 
@@ -26,21 +28,35 @@ void Scene::Shutdown(){
 void Scene::Draw(){
 	DEBUG("GameObject Map size before Drawing: " << game_object_map.size());
 	INFO("Drawing game_objects of scene: " << this->GetSceneName());
+
 	for(auto each_game_object : game_object_map){
 		auto game_object = each_game_object.second;
 		DEBUG("Drawing GameObject: " << game_object->GetGameObjectName());
+
 		game_object->Draw();
+
 		DEBUG(game_object->GetGameObjectName() << " Drew successful");
 	}
+
 	INFO("Trying to Resolve Collisions to: " << this->GetSceneName());
 	ResolveCollision();
+
+	INFO(this->GetSceneName() << " Draw finished.");
 }
 
 void Scene::UpdateCode(){
+	INFO("Updating code of scene's game_objects: " << this->GetSceneName());
+
 	for(auto each_game_object : game_object_map){
 		auto game_object = each_game_object.second;
+		DEBUG("Updating Code of GameObject: " << game_object->GetGameObjectName());
+
 		game_object->UpdateCode();
+
+		DEBUG(game_object->GetGameObjectName() << " Update successful");
 	}
+
+	INFO(this->GetSceneName() << " Update finished.");
 }
 
 
