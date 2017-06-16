@@ -13,6 +13,7 @@ int main(int, char**) {
 		global::frame_rate);
 
 	LevelManager::level_manager.GoToMenu();
+
 	// Starting game execution.
 	engine::Game::instance.Run();
 

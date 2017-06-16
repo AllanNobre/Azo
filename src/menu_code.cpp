@@ -32,10 +32,10 @@ void MenuCode::NextScene(){
 void MenuCode::DisableSound(){
 	ASSERT(audio_controller != NULL, "AudioController can't be null while disabling sound.");
 
-	if(engine::Game::instance.input_manager.KeyDownOnce(engine::Button::SPACE)){
+	if(engine::Game::instance.input_manager.KeyDownOnce(engine::Button::BACKSPACE)){
 		if(audio_controller->GetAudioState("menu_theme") == engine::AudioState::PLAYING){
-			DEBUG("Stopping Audio");
-			audio_controller->StopAudio("menu_theme");
+			DEBUG("Pausing Audio");
+			audio_controller->PauseAudio("menu_theme");
 		}else{
 			DEBUG("Starting Audio");
 			audio_controller->PlayAudio("menu_theme");

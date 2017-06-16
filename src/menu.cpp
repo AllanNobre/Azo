@@ -42,15 +42,17 @@ void Menu::CreateComponents(){
 	disable_sound_image = new engine::ImageComponent(
 		*menu_game_object,
 		"general_images/disable_sound.png",
-		0,
-		500
+		101,
+		515,
+		0.40
 		);
 
 	play_button_image = new engine::ImageComponent(
 		*menu_game_object,
-		"backgrounds/play_button.png",
-		300,
-		300
+		"general_images/play_button.png",
+		85,
+		250,
+		0.40
 		);
 
 	DEBUG("Setting Image Components");
@@ -63,7 +65,7 @@ void Menu::CreateComponents(){
 
 	DEBUG("Creating Audio Components for Menu.");
 
-	menu_theme = new engine::AudioComponent(*menu_game_object, "audios/TemaGame.ogg", true, true);
+	menu_theme = new engine::AudioComponent(*menu_game_object, "audios/HoraDeAcertar.ogg", true, true);
 	audio_controller = new engine::AudioController();
 
 	DEBUG("Setting Audio Components");

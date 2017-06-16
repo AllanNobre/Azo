@@ -43,15 +43,8 @@ void BackgroundComponent::UpdateQuad(){
 	};
 }
 
-
-void BackgroundComponent::Shutdown(){
-	/* Terminate Texture */
-	image_texture = NULL;
-}
-
 void BackgroundComponent::Draw(){
 	UpdateQuad();
-
 	int successful_draw = SDL_RenderCopy(
 		Game::instance.sdl_elements.GetCanvas(),
 		image_texture,
@@ -62,4 +55,9 @@ void BackgroundComponent::Draw(){
 	if(successful_draw < 0){
 		ERROR("Unable to draw.");
 	}
+}
+
+void BackgroundComponent::Shutdown(){
+	/* Terminate Texture */
+	image_texture = NULL;
 }

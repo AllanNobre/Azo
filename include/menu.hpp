@@ -20,10 +20,12 @@ namespace Azo {
 			engine::BackgroundComponent *menu_image;
 			engine::ImageComponent *disable_sound_image;
 			engine::ImageComponent *play_button_image;
+
 		public:
 			Menu();
 			~Menu();
 			Menu(std::string scene_name);
+
 		private:
 			void CreateGameObjects();
 			void CreateComponents();

@@ -16,7 +16,7 @@ Player::Player(std::string name, int x, int y){
 void Player::CreateComponents(){
 	DEBUG("Creating Player Components.");
 	GenWalkingAnimation();
-	m_walking = new engine::Animation(*this, "sprites/CowboyRun.png", 1000.0f, m_walking_animation_sprites, 1, 1);
+	m_walking = new engine::Animation(*this, "sprites/CowboyRun.png", 1000.0f, m_walking_animation_sprites, 0, 22);
 
 	m_anim_controller = new engine::AnimationController();
 
