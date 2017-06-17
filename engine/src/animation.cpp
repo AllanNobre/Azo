@@ -6,7 +6,12 @@ using namespace engine;
 
 Animation::Animation(){}
 
-Animation::Animation(GameObject & game_object, std::string image_path, float animation_time, std::vector<Sprite *> sprite_list, int start_frame, int end_frame){
+Animation::Animation(GameObject & game_object,
+		     std::string image_path,
+		     float animation_time,
+		     std::vector<Sprite *> sprite_list,
+		     int start_frame,
+		     int end_frame){
 
 	ASSERT(image_path != "", "Animation::CreateAnimation, image_path is empty.");
 	ASSERT(animation_time > 0, "Animation time can't be zero or less.");
@@ -90,4 +95,3 @@ void Animation::UpdateGameObjectMeasures(){
 	game_object->bottom = game_object->y + game_object->game_object_height;
 
 }
-

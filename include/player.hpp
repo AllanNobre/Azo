@@ -12,18 +12,20 @@ namespace Azo {
 	class Player : public engine::GameObject {
 		private:
 			engine::AnimationController * m_anim_controller;
-			engine::Animation *m_walking;
+			engine::Animation *m_walking_right;
 			engine::Animation *m_jumping;
-
+			engine::Animation *m_standing;
 
 			PlayerCode *m_player_code;
-			std::vector<engine::Sprite *> m_walking_animation_sprites;
+			std::vector<engine::Sprite *> m_walking_right_animation_sprites;
 			std::vector<engine::Sprite *> m_jumping_animation_sprites;
+			std::vector<engine::Sprite *> m_standing_animation_sprites;
 
 		private:
 			void CreateComponents();
-			void GenWalkingAnimation();
+			void GenWalkingRightAnimation();
 			void GenJumpingAnimation();
+			void GenStandingAnimation();
 			inline std::string GetClassName(){
 				return "Player";
 			}

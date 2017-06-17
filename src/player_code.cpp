@@ -45,7 +45,7 @@ void PlayerCode::CheckJump(){
 		DEBUG("Player Jumped.");
 		timer.Step();
 		this->state = PlayerState::JUMPING;
-		anim_controller.StopAnimation("walking");
+		anim_controller.StopAnimation("standing");
 		anim_controller.StartAnimation("jumping");
 	}
 
@@ -61,7 +61,7 @@ void PlayerCode::CheckJump(){
 
 	if(this->state == PlayerState::RUNNING){
 		anim_controller.StopAnimation("jumping");
-		anim_controller.StartAnimation("walking");
+		anim_controller.StartAnimation("standing");
 	}
 
 }
