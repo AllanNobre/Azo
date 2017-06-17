@@ -13,17 +13,21 @@ namespace Azo {
 		private:
 			engine::AnimationController * m_anim_controller;
 			engine::Animation *m_walking_right;
+			engine::Animation *m_walking_left;
 			engine::Animation *m_jumping;
 			engine::Animation *m_standing;
 
-			PlayerCode *m_player_code;
 			std::vector<engine::Sprite *> m_walking_right_animation_sprites;
+			std::vector<engine::Sprite *> m_walking_left_animation_sprites;
 			std::vector<engine::Sprite *> m_jumping_animation_sprites;
 			std::vector<engine::Sprite *> m_standing_animation_sprites;
+
+			PlayerCode *m_player_code;
 
 		private:
 			void CreateComponents();
 			void GenWalkingRightAnimation();
+			void GenWalkingLeftAnimation();
 			void GenJumpingAnimation();
 			void GenStandingAnimation();
 			inline std::string GetClassName(){

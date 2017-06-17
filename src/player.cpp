@@ -37,6 +37,23 @@ void Player::CreateComponents(){
 	m_anim_controller->AddAnimation("walking_right", *m_walking_right);
 
 
+	DEBUG("Creating Walking Left Animation Controller.");
+	GenWalkingLeftAnimation();
+
+	m_walking_left = new engine::Animation(*this,
+					       "sprites/CowboyRunLeft.png",
+					       1000.0f,
+					       m_walking_left_animation_sprites,
+					       0,
+					       23);
+
+	m_walking_left->DisableComponent();
+
+
+	DEBUG("Adding walking left animation to animation controller.");
+	m_anim_controller->AddAnimation("walking_left", *m_walking_left);
+
+
 	DEBUG("Creating Jumping Animation Controller.");
 	GenJumpingAnimation();
 
@@ -61,6 +78,7 @@ void Player::CreateComponents(){
 					   0,
 					   0);
 
+
 	DEBUG("Adding standing animation to animation controller");
 	m_anim_controller->AddAnimation("standing", *m_standing);
 
@@ -77,7 +95,7 @@ void Player::CreateComponents(){
 }
 
 void Player::GenWalkingRightAnimation(){
-	DEBUG("Generating player walking animation.");
+	DEBUG("Generating player walking right animation.");
 	for(int i = 0; i < 23; i++){
 		m_walking_right_animation_sprites.push_back(new engine::Sprite());
 	}
@@ -197,6 +215,133 @@ void Player::GenWalkingRightAnimation(){
 	m_walking_right_animation_sprites[22]->sprite_y = 29;
 	m_walking_right_animation_sprites[22]->sprite_width = 1784 - 1709;
 	m_walking_right_animation_sprites[22]->sprite_height = 139 - 29;
+}
+
+void Player::GenWalkingLeftAnimation(){
+	DEBUG("Generating player walking left animation.");
+	for(int i = 0; i < 24; i++){
+		m_walking_left_animation_sprites.push_back(new engine::Sprite());
+	}
+
+	m_walking_left_animation_sprites[0]->sprite_x = 1732;
+	m_walking_left_animation_sprites[0]->sprite_y = 34;
+	m_walking_left_animation_sprites[0]->sprite_width = 1798 - 1732;
+	m_walking_left_animation_sprites[0]->sprite_height = 139 - 34;
+
+	m_walking_left_animation_sprites[1]->sprite_x = 1663;
+	m_walking_left_animation_sprites[1]->sprite_y = 34;
+	m_walking_left_animation_sprites[1]->sprite_width = 1729 - 1663;
+	m_walking_left_animation_sprites[1]->sprite_height = 139 - 34;
+
+	m_walking_left_animation_sprites[2]->sprite_x = 1597;
+	m_walking_left_animation_sprites[2]->sprite_y = 34;
+	m_walking_left_animation_sprites[2]->sprite_width = 1663 - 1597;
+	m_walking_left_animation_sprites[2]->sprite_height = 139 - 34;
+
+	m_walking_left_animation_sprites[3]->sprite_x = 1527;
+	m_walking_left_animation_sprites[3]->sprite_y = 20;
+	m_walking_left_animation_sprites[3]->sprite_width = 1597 - 1527;
+	m_walking_left_animation_sprites[3]->sprite_height = 139 - 20;
+
+	m_walking_left_animation_sprites[4]->sprite_x = 1455;
+	m_walking_left_animation_sprites[4]->sprite_y = 20;
+	m_walking_left_animation_sprites[4]->sprite_width = 1527 - 1455;
+	m_walking_left_animation_sprites[4]->sprite_height = 139 - 20;
+
+	m_walking_left_animation_sprites[5]->sprite_x = 1384;
+	m_walking_left_animation_sprites[5]->sprite_y = 20;
+	m_walking_left_animation_sprites[5]->sprite_width = 1455 - 1384;
+	m_walking_left_animation_sprites[5]->sprite_height = 139 - 20;
+
+	m_walking_left_animation_sprites[6]->sprite_x = 1298;
+	m_walking_left_animation_sprites[6]->sprite_y = 26;
+	m_walking_left_animation_sprites[6]->sprite_width = 1384 - 1298;
+	m_walking_left_animation_sprites[6]->sprite_height = 139 - 26;
+
+	m_walking_left_animation_sprites[7]->sprite_x = 1213;
+	m_walking_left_animation_sprites[7]->sprite_y = 26;
+	m_walking_left_animation_sprites[7]->sprite_width = 1298 - 1213;
+	m_walking_left_animation_sprites[7]->sprite_height = 139 - 26;
+
+	m_walking_left_animation_sprites[8]->sprite_x = 1127;
+	m_walking_left_animation_sprites[8]->sprite_y = 26;
+	m_walking_left_animation_sprites[8]->sprite_width = 1213 - 1127;
+	m_walking_left_animation_sprites[8]->sprite_height = 139 - 26;
+
+	m_walking_left_animation_sprites[9]->sprite_x = 1055;
+	m_walking_left_animation_sprites[9]->sprite_y = 26;
+	m_walking_left_animation_sprites[9]->sprite_width = 1127 - 1055;
+	m_walking_left_animation_sprites[9]->sprite_height = 139 - 26;
+
+	m_walking_left_animation_sprites[10]->sprite_x = 983;
+	m_walking_left_animation_sprites[10]->sprite_y = 26;
+	m_walking_left_animation_sprites[10]->sprite_width = 1055 - 983;
+	m_walking_left_animation_sprites[10]->sprite_height = 139 - 26;
+
+	m_walking_left_animation_sprites[11]->sprite_x = 911;
+	m_walking_left_animation_sprites[11]->sprite_y = 26;
+	m_walking_left_animation_sprites[11]->sprite_width = 983 - 911;
+	m_walking_left_animation_sprites[11]->sprite_height = 139 - 26;
+
+	m_walking_left_animation_sprites[12]->sprite_x = 839;
+	m_walking_left_animation_sprites[12]->sprite_y = 26;
+	m_walking_left_animation_sprites[12]->sprite_width = 911 - 839;
+	m_walking_left_animation_sprites[12]->sprite_height = 139 - 26;
+
+	m_walking_left_animation_sprites[13]->sprite_x = 770;
+	m_walking_left_animation_sprites[13]->sprite_y = 34;
+	m_walking_left_animation_sprites[13]->sprite_width = 839 - 770;
+	m_walking_left_animation_sprites[13]->sprite_height = 139 - 34;
+
+	m_walking_left_animation_sprites[14]->sprite_x = 700;
+	m_walking_left_animation_sprites[14]->sprite_y = 34;
+	m_walking_left_animation_sprites[14]->sprite_width = 769 - 700;
+	m_walking_left_animation_sprites[14]->sprite_height = 139 - 34;
+
+	m_walking_left_animation_sprites[15]->sprite_x = 634;
+	m_walking_left_animation_sprites[15]->sprite_y = 20;
+	m_walking_left_animation_sprites[15]->sprite_width = 698 - 634;
+	m_walking_left_animation_sprites[15]->sprite_height = 139 - 20;
+
+	m_walking_left_animation_sprites[16]->sprite_x = 568;
+	m_walking_left_animation_sprites[16]->sprite_y = 20;
+	m_walking_left_animation_sprites[16]->sprite_width = 632 - 568;
+	m_walking_left_animation_sprites[16]->sprite_height = 139 - 20;
+
+	m_walking_left_animation_sprites[17]->sprite_x = 503;
+	m_walking_left_animation_sprites[17]->sprite_y = 20;
+	m_walking_left_animation_sprites[17]->sprite_width = 566 - 503;
+	m_walking_left_animation_sprites[17]->sprite_height = 139 - 20;
+
+	m_walking_left_animation_sprites[18]->sprite_x = 417;
+	m_walking_left_animation_sprites[18]->sprite_y = 26;
+	m_walking_left_animation_sprites[18]->sprite_width = 503 - 417;
+	m_walking_left_animation_sprites[18]->sprite_height = 139 - 26;
+
+	m_walking_left_animation_sprites[19]->sprite_x = 331;
+	m_walking_left_animation_sprites[19]->sprite_y = 26;
+	m_walking_left_animation_sprites[19]->sprite_width = 417 - 331;
+	m_walking_left_animation_sprites[19]->sprite_height = 139 - 26;
+
+	m_walking_left_animation_sprites[20]->sprite_x = 245;
+	m_walking_left_animation_sprites[20]->sprite_y = 26;
+	m_walking_left_animation_sprites[20]->sprite_width = 331 - 245;
+	m_walking_left_animation_sprites[20]->sprite_height = 139 - 26;
+
+	m_walking_left_animation_sprites[21]->sprite_x = 170;
+	m_walking_left_animation_sprites[21]->sprite_y = 29;
+	m_walking_left_animation_sprites[21]->sprite_width = 245 - 170;
+	m_walking_left_animation_sprites[21]->sprite_height = 139 - 29;
+
+	m_walking_left_animation_sprites[22]->sprite_x = 92;
+	m_walking_left_animation_sprites[22]->sprite_y = 29;
+	m_walking_left_animation_sprites[22]->sprite_width = 169 - 92;
+	m_walking_left_animation_sprites[22]->sprite_height = 139 - 29;
+
+	m_walking_left_animation_sprites[23]->sprite_x = 15;
+	m_walking_left_animation_sprites[23]->sprite_y = 29;
+	m_walking_left_animation_sprites[23]->sprite_width = 92 - 15;
+	m_walking_left_animation_sprites[23]->sprite_height = 139 - 29;
 }
 
 void Player::GenJumpingAnimation(){
