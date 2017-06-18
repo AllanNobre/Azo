@@ -67,3 +67,13 @@ void AnimationController::StopAnimation(std::string animation_name){
 		ERROR("Animation couldn't be found!");
 	}
 }
+
+void AnimationController::StopAllAnimations(){
+	DEBUG("Disable all Animations");
+	for(auto each_pair : animation_map){
+		auto animation = each_pair.second;
+		DEBUG("Disabling animation: " << animation->animation_name);
+		animation->DisableComponent();
+		DEBUG(animation->animation_name << " Disable.");
+	}
+}

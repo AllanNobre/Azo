@@ -11,5 +11,5 @@ FloorCode::FloorCode(engine::GameObject &game_object){
 void FloorCode::UpdateCode(){
 	//INFO("Updating FloorCode");
 	this->game_object->collision_list.clear();
-	game_object->x -= 4;
+	//game_object->x -= 4;
 }

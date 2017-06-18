@@ -6,11 +6,13 @@
 
 namespace engine {
 	class MovingImageComponent : public BackgroundComponent {
+		private:
+			double resize = 1.0;
 		protected:
 			SDL_Rect canvasQuad;
 		public:
 			MovingImageComponent();
-			MovingImageComponent(GameObject &game_object, std::string image_path);
+			MovingImageComponent(GameObject &game_object, std::string image_path, double resize);
 		public:
 			void Init();
 			void Draw();

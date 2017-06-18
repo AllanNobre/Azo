@@ -11,5 +11,5 @@ WallCode::WallCode(engine::GameObject &game_object){
 void WallCode::UpdateCode(){
 	//INFO("Updating WallCode");
 	this->game_object->collision_list.clear();
-	game_object->x -= 4;
+	//game_object->x -= 4;
 }

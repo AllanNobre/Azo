@@ -5,9 +5,10 @@ using namespace engine;
 
 MovingImageComponent::MovingImageComponent(){}
 
-MovingImageComponent::MovingImageComponent(GameObject &game_object, std::string image_path){
+MovingImageComponent::MovingImageComponent(GameObject &game_object, std::string image_path, double resize){
 	this->game_object = &game_object;
 	this->image_path = image_path;
+	this->resize = resize;
 }
 
 void MovingImageComponent::Init(){
@@ -19,15 +20,17 @@ void MovingImageComponent::Init(){
 	component_width = assets_image->width;
 	component_height = assets_image->height;
 
-	game_object->game_object_width = component_width;
+	game_object->game_object_width = (int)(component_width * resize);
 
-	game_object->game_object_height = component_height;
+	game_object->game_object_height = (int)(component_height * resize);
 
+	canvasQuad = {game_object->x,
+		      game_object->y,
+		      (int)(component_width * resize),
+		      (int)(component_height * resize)};
 
-	canvasQuad = {game_object->x, game_object->y, component_width, component_height};
 	renderQuad = {0, 0, component_width, component_height};
 }
-
 
 void MovingImageComponent::Draw(){
 	UpdateQuad();
@@ -49,8 +52,8 @@ void MovingImageComponent::UpdateQuad(){
 	canvasQuad = {
 		BackgroundComponent::game_object->x,
 		BackgroundComponent::game_object->y,
-		component_width,
-		component_height
+		(int)(component_width * resize),
+		(int)(component_height * resize)
 	};
 }
 
@@ -63,4 +66,3 @@ void MovingImageComponent::UpdateGameObjectMeasures(){
 	game_object->bottom = game_object->y + game_object->game_object_height;
 
 }
-

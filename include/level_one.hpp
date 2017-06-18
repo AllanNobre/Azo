@@ -13,7 +13,7 @@ namespace Azo {
 		private:
 			Player *player;
 			Floor *floor_platform;
-			Floor *floor_plataform_two;
+			Floor *floor_plataform_one;
 			Wall *wall;
 		public:
 			bool apply_update = false;

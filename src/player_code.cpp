@@ -10,7 +10,7 @@ PlayerCode::PlayerCode(engine::GameObject &game_object){
 	DEBUG("PlayerCode::PlayerCode method.");
 	this->game_object = &game_object;
 	this->component_state = engine::State::ENABLED;
-	this->state = PlayerState::FALLING;
+	this->state = PlayerState::STANDING;
 	FindAnimationController();
 }
 
@@ -21,27 +21,40 @@ void PlayerCode::FindAnimationController(){
 void PlayerCode::UpdateCode(){
 	DEBUG("PlayerCode::UpdateCode method.");
 
-	if(this->state != PlayerState::JUMPING){
-		this->state = PlayerState::FALLING;
-		CheckCollisionWithFloor();
+	if(game_object->y <= 370){
+		game_object->y = 370;
 	}
 
-	CheckCollisionWithWall();
+	if(engine::Game::instance.input_manager.KeyDown(engine::Button::A)){
+		game_object->x -= 8;
+		anim_controller.StopAllAnimations();
+		anim_controller.StartAnimation("walking_left");
+		this->state = PlayerState::RUNNING;
+	}else if(engine::Game::instance.input_manager.KeyDown(engine::Button::D)){
+		game_object->x += 8;
+		anim_controller.StopAllAnimations();
+		anim_controller.StartAnimation("walking_right");
+		this->state = PlayerState::RUNNING;
+	}else{
+		this->state = PlayerState::STANDING;
+	}
 
-	CheckJump();
+	if(this->state == PlayerState::STANDING){
+		anim_controller.StopAllAnimations();
+		anim_controller.StartAnimation("standing");
+	}
 
-	//CheckSlide();
+	// if(engine::Game::instance.input_manager.KeyDown(engine::Button::W)){
+	//      game_object->x += 5;
+	//      anim_controller.StopAllAnimations();
+	//      anim_controller.StartAnimation("walking_right");
+	// }
 
 	Gravity();
-
-	// Stop the player almost in the center of the page
-	if(game_object->x < engine::Game::instance.sdl_elements.GetWindowWidth() / 3){
-		Run();
-	}
 }
 
 void PlayerCode::CheckJump(){
-	if(engine::Game::instance.input_manager.KeyDown(engine::Button::W) && this->state == PlayerState::RUNNING){
+	if(engine::Game::instance.input_manager.KeyDown(engine::Button::W) && this->state != PlayerState::RUNNING){
 		DEBUG("Player Jumped.");
 		timer.Step();
 		this->state = PlayerState::JUMPING;
@@ -66,22 +79,33 @@ void PlayerCode::CheckJump(){
 
 }
 
-void PlayerCode::CheckSlide(){
-	// The player should slide (INPUT = 'S').
-	if(engine::Game::instance.input_manager.KeyDown(engine::Button::S)){
-		//game_object->y += 3;
+void PlayerCode::CheckMovingRight(){
+	// The player should move right (INPUT = 'D').
+	if(engine::Game::instance.input_manager.KeyDown(engine::Button::D)){
+		RunRight();
 	}
 }
 
-void PlayerCode::Run(){
+void PlayerCode::CheckMovingLeft(){
+	// The player should move right (INPUT = 'A').
+	if(engine::Game::instance.input_manager.KeyDown(engine::Button::A)){
+		RunLeft();
+	}
+}
+
+void PlayerCode::RunRight(){
 	// Continuous run to right.
 	game_object->x += 5;
+}
 
+void PlayerCode::RunLeft(){
+	// Continuous run to right.
+	game_object->x -= 5;
 }
 
 void PlayerCode::Gravity(){
 	// Gravity that pulls the player down.
-	if(this->state != PlayerState::RUNNING){
+	if(this->state == PlayerState::FALLING || this->state == PlayerState::JUMPING){
 		game_object->y += 6;
 	}
 }
@@ -93,7 +117,8 @@ void PlayerCode::CheckCollisionWithFloor(){
 	for(it = game_object->collision_list.begin(); it != game_object->collision_list.end(); ++it){
 		auto collision = *it;
 		if(collision == "Floor"){
-			this->state = PlayerState::RUNNING;
+			CheckMovingRight();
+			CheckMovingLeft();
 			game_object->collision_list.erase(it);
 			break;
 		}

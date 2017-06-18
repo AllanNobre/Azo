@@ -16,8 +16,8 @@ namespace Azo {
 	enum class PlayerState {
 		JUMPING,
 		FALLING,
-		RUNNING,
-		NOT_RUNNING,
+		STANDING,
+		RUNNING
 	};
 
 	class PlayerCode : public engine::CodeComponent {
@@ -28,9 +28,11 @@ namespace Azo {
 
 			void CheckCollisionWithFloor();
 			void CheckCollisionWithWall();
-			void Run();
+			void RunRight();
+			void RunLeft();
 			void CheckJump();
-			void CheckSlide();
+			void CheckMovingRight();
+			void CheckMovingLeft();
 			void Gravity();
 
 		public:

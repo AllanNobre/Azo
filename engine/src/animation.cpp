@@ -69,10 +69,8 @@ void Animation::UpdateQuad(){
 }
 
 void Animation::CheckLimits(){
-	current_sprite++;
-
 	if(current_sprite > end_frame){
-		current_sprite = 0;
+		current_sprite = start_frame;
 		current_animation_time = 0.0f;
 	}
 }

@@ -18,15 +18,15 @@ void LevelOne::CreateGameObjects(){
 	player = new Player("McCree", 0, 300);
 	floor_platform = new Floor("floor", 0, 500);
 	wall = new Wall("wall", 530, 450);
-	floor_plataform_two = new Floor("floor_1", 1100, 500);
+	floor_plataform_one = new Floor("floor_1", 1100, 500);
 }
 
 void LevelOne::SetGameObjects(){
 	INFO("Setting LevelOne GameObjects.");
 	this->AddGameObject(*player);
 	this->AddGameObject(*floor_platform);
-	this->AddGameObject(*wall);
-	this->AddGameObject(*floor_plataform_two);
+	//this->AddGameObject(*wall);
+	this->AddGameObject(*floor_plataform_one);
 }
 
 void LevelOne::Shutdown(){
@@ -44,10 +44,9 @@ void LevelOne::DestroyGameObjects(){
 	free(floor_platform);
 	floor_platform = NULL;
 
-	floor_plataform_two->Shutdown();
-	free(floor_plataform_two);
-	floor_plataform_two = NULL;
-
+	floor_plataform_one->Shutdown();
+	free(floor_plataform_one);
+	floor_plataform_one = NULL;
 
 	wall->Shutdown();
 	free(wall);
