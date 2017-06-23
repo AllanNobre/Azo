@@ -10,6 +10,9 @@ Player::Player(std::string name, int x, int y){
 	this->x = x;
 	this->y = y;
 
+	this->fictional_position_x = x;
+	this->fictional_position_y = y;
+
 	CreateComponents();
 }
 

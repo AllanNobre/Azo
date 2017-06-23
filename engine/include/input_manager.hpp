@@ -22,6 +22,8 @@ namespace engine {
 		private:
 			unsigned int last_event_type;
 			std::list<SDL_Event> event_list;
+			const Uint8 *keyboard_states;
+
 		public:
 			InputManager();
 
@@ -32,9 +34,9 @@ namespace engine {
 			bool KeyDown(Button button);
 			bool KeyDownOnce(Button button);
 
-			void Clear();
+			bool KeyState(Button button);
 
-		private:
+			void Clear();
 	};
 }
 

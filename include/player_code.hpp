@@ -12,27 +12,16 @@
 
 
 namespace Azo {
-
-	enum class PlayerState {
-		JUMPING,
-		FALLING,
-		STANDING,
-		RUNNING
-	};
+	class Player;
 
 	class PlayerCode : public engine::CodeComponent {
 		private:
+			Player *player;
 			engine::Timer timer;
 			engine::AnimationController anim_controller;
-			PlayerState state;
 
 			void CheckCollisionWithFloor();
 			void CheckCollisionWithWall();
-			void RunRight();
-			void RunLeft();
-			void CheckJump();
-			void CheckMovingRight();
-			void CheckMovingLeft();
 			void Gravity();
 
 		public:

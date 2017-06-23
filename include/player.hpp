@@ -9,6 +9,14 @@
 #include <string>
 
 namespace Azo {
+
+	enum class PlayerState {
+		JUMPING,
+		FALLING,
+		STANDING,
+		RUNNING
+	};
+
 	class Player : public engine::GameObject {
 		private:
 			engine::AnimationController * m_anim_controller;
@@ -24,6 +32,12 @@ namespace Azo {
 
 			PlayerCode *m_player_code;
 
+		public:
+			PlayerState state;
+			bool is_on_ground = true;
+			int fictional_position_x;
+			int fictional_position_y;
+
 		private:
 			void CreateComponents();
 			void GenWalkingRightAnimation();
@@ -33,6 +47,7 @@ namespace Azo {
 			inline std::string GetClassName(){
 				return "Player";
 			}
+
 		public:
 			Player();
 			Player(std::string name, int x, int y);

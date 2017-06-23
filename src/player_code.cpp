@@ -1,5 +1,7 @@
 #include "player_code.hpp"
 #include "level_manager.hpp"
+#include "game_globals.hpp"
+#include "player.hpp"
 
 
 using namespace Azo;
@@ -8,118 +10,129 @@ PlayerCode::PlayerCode(){}
 
 PlayerCode::PlayerCode(engine::GameObject &game_object){
 	DEBUG("PlayerCode::PlayerCode method.");
-	this->game_object = &game_object;
+	player = dynamic_cast<Player *>(&game_object);
 	this->component_state = engine::State::ENABLED;
-	this->state = PlayerState::STANDING;
+	player->state = PlayerState::STANDING;
 	FindAnimationController();
 }
 
 void PlayerCode::FindAnimationController(){
-	this->anim_controller = *(game_object->GetAnimationController(typeid(engine::AnimationController)));
+	this->anim_controller = *(player->GetAnimationController(typeid(engine::AnimationController)));
 }
 
 void PlayerCode::UpdateCode(){
 	DEBUG("PlayerCode::UpdateCode method.");
 
-	if(game_object->y <= 370){
-		game_object->y = 370;
+	// Player is on ground.
+	if(player->y >= global::phase_floor){
+		player->y = global::phase_floor;
+		player->is_on_ground = true;
 	}
 
-	if(engine::Game::instance.input_manager.KeyDown(engine::Button::A)){
-		game_object->x -= 8;
-		anim_controller.StopAllAnimations();
-		anim_controller.StartAnimation("walking_left");
-		this->state = PlayerState::RUNNING;
-	}else if(engine::Game::instance.input_manager.KeyDown(engine::Button::D)){
-		game_object->x += 8;
-		anim_controller.StopAllAnimations();
-		anim_controller.StartAnimation("walking_right");
-		this->state = PlayerState::RUNNING;
-	}else{
-		this->state = PlayerState::STANDING;
+	// Player is on left limit of the phase.
+	if(player->x <= global::phase_limit_left){
+		player->x = global::phase_limit_left;
+		player->fictional_position_x = global::phase_limit_left;
 	}
 
-	if(this->state == PlayerState::STANDING){
-		anim_controller.StopAllAnimations();
-		anim_controller.StartAnimation("standing");
+	// Player is on right limit of the phase.
+	if(player->fictional_position_x >= global::phase_limit_right){
+		player->x = engine::Game::instance.sdl_elements.GetWindowWidth() - 75;
+		player->fictional_position_x = global::phase_limit_right;
 	}
 
-	// if(engine::Game::instance.input_manager.KeyDown(engine::Button::W)){
-	//      game_object->x += 5;
-	//      anim_controller.StopAllAnimations();
-	//      anim_controller.StartAnimation("walking_right");
-	// }
-
-	Gravity();
-}
-
-void PlayerCode::CheckJump(){
-	if(engine::Game::instance.input_manager.KeyDown(engine::Button::W) && this->state != PlayerState::RUNNING){
-		DEBUG("Player Jumped.");
-		timer.Step();
-		this->state = PlayerState::JUMPING;
-		anim_controller.StopAnimation("standing");
-		anim_controller.StartAnimation("jumping");
+	// Player is on the middle of the canvas.
+	if(player->fictional_position_x <= global::phase_limit_to_go_right && player->x >= engine::Game::instance.sdl_elements.GetWindowWidth() / 3){
+		player->x = engine::Game::instance.sdl_elements.GetWindowWidth() / 3;
 	}
 
-	if(this->state == PlayerState::JUMPING){
-		timer.DeltaTime();
-		if(timer.GetDeltaTime() <= 400.0f){
-			//INFO("Tempo: " << timer.GetDeltaTime());
-			game_object->y -= 15;
+	if(engine::Game::instance.input_manager.KeyState(engine::Button::A)){
+		if(player->fictional_position_x >= global::phase_limit_to_go_right || player->fictional_position_x <= engine::Game::instance.sdl_elements.GetWindowWidth() / 3){
+			player->x -= global::player_velocity;
 		}else{
-			this->state = PlayerState::FALLING;
+			// Nothing to do.
+		}
+
+		player->fictional_position_x -= global::player_velocity;
+
+		if(player->is_on_ground){
+			anim_controller.StopAllAnimations();
+			anim_controller.StartAnimation("walking_left");
+			player->state = PlayerState::RUNNING;
+		}else{
+			// Nothing to do.
+		}
+
+	}else if(engine::Game::instance.input_manager.KeyState(engine::Button::D)){
+		if(player->fictional_position_x >= global::phase_limit_to_go_right || player->fictional_position_x <= engine::Game::instance.sdl_elements.GetWindowWidth() / 3){
+			player->x += global::player_velocity;
+		}else{
+			// Nothing to do.
+		}
+
+		player->fictional_position_x += global::player_velocity;
+
+		if(player->is_on_ground){
+			anim_controller.StopAllAnimations();
+			anim_controller.StartAnimation("walking_right");
+			player->state = PlayerState::RUNNING;
+		}else{
+			// Nothing to do.
+		}
+
+	}else{
+		if(player->is_on_ground){
+			anim_controller.StopAllAnimations();
+			anim_controller.StartAnimation("standing");
+			player->state = PlayerState::STANDING;
+		}else{
+			// Nothing to do;
 		}
 	}
 
-	if(this->state == PlayerState::RUNNING){
-		anim_controller.StopAnimation("jumping");
-		anim_controller.StartAnimation("standing");
+	if(engine::Game::instance.input_manager.KeyState(engine::Button::W)){
+		if(player->is_on_ground){
+			timer.Step();
+
+			anim_controller.StopAllAnimations();
+			anim_controller.StartAnimation("jumping");
+			player->is_on_ground = false;
+			player->state = PlayerState::JUMPING;
+		}else{
+			// Nothing to do.
+		}
+
 	}
 
-}
-
-void PlayerCode::CheckMovingRight(){
-	// The player should move right (INPUT = 'D').
-	if(engine::Game::instance.input_manager.KeyDown(engine::Button::D)){
-		RunRight();
+	if(!player->is_on_ground){
+		timer.DeltaTime();
+		if(timer.GetDeltaTime() <= 500.0f){
+			//INFO("Tempo: " << timer.GetDeltaTime());
+			player->y -= 11;
+		}
 	}
-}
 
-void PlayerCode::CheckMovingLeft(){
-	// The player should move right (INPUT = 'A').
-	if(engine::Game::instance.input_manager.KeyDown(engine::Button::A)){
-		RunLeft();
-	}
-}
-
-void PlayerCode::RunRight(){
-	// Continuous run to right.
-	game_object->x += 5;
-}
-
-void PlayerCode::RunLeft(){
-	// Continuous run to right.
-	game_object->x -= 5;
+	Gravity();
+	DEBUG("Posição canvas: " << player->x);
+	DEBUG("Posição ficticia: " << player->fictional_position_x);
 }
 
 void PlayerCode::Gravity(){
 	// Gravity that pulls the player down.
-	if(this->state == PlayerState::FALLING || this->state == PlayerState::JUMPING){
-		game_object->y += 6;
+	if(!player->is_on_ground){
+		player->y += 6;
 	}
 }
-
 
 void PlayerCode::CheckCollisionWithFloor(){
 	std::list<std::string>::iterator it;
 
-	for(it = game_object->collision_list.begin(); it != game_object->collision_list.end(); ++it){
+	for(it = player->collision_list.begin(); it != player->collision_list.end(); ++it){
 		auto collision = *it;
 		if(collision == "Floor"){
-			CheckMovingRight();
-			CheckMovingLeft();
-			game_object->collision_list.erase(it);
+			// CheckMovingRight();
+			// CheckMovingLeft();
+			player->collision_list.erase(it);
 			break;
 		}
 	}
@@ -128,10 +141,10 @@ void PlayerCode::CheckCollisionWithFloor(){
 void PlayerCode::CheckCollisionWithWall(){
 	std::list<std::string>::iterator it;
 
-	for(it = game_object->collision_list.begin(); it != game_object->collision_list.end(); ++it){
+	for(it = player->collision_list.begin(); it != player->collision_list.end(); ++it){
 		auto collision = *it;
 		if(collision == "Wall"){
-			game_object->collision_list.erase(it);
+			player->collision_list.erase(it);
 			LevelManager::level_manager.GoToMenu();
 			break;
 		}

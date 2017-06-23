@@ -15,7 +15,7 @@ void LevelOne::SetDependencies(){
 }
 
 void LevelOne::CreateGameObjects(){
-	player = new Player("McCree", 0, 300);
+	player = new Player("McCree", 0, 390);
 	floor_platform = new Floor("floor", 0, 500);
 	wall = new Wall("wall", 530, 450);
 	floor_plataform_one = new Floor("floor_1", 1100, 500);
@@ -24,9 +24,9 @@ void LevelOne::CreateGameObjects(){
 void LevelOne::SetGameObjects(){
 	INFO("Setting LevelOne GameObjects.");
 	this->AddGameObject(*player);
-	this->AddGameObject(*floor_platform);
-	//this->AddGameObject(*wall);
-	this->AddGameObject(*floor_plataform_one);
+	// this->AddGameObject(*floor_platform);
+	// this->AddGameObject(*wall);
+	// this->AddGameObject(*floor_plataform_one);
 }
 
 void LevelOne::Shutdown(){
