@@ -87,3 +87,4 @@ $ ./Oza-Forasteiro
 Será entregue como produto final:
 * Uma fase completa;
 * Um personagem jogável;
+* Trilha sonora para Menu e Uma Fase;
